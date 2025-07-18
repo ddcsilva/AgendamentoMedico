@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AgendamentoMedico.Infrastructure\AgendamentoMedico.Infrastructure.csproj" />
+    <ProjectReference Include="..\AgendamentoMedico.Application\AgendamentoMedico.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using AgendamentoMedico.Application.Interfaces;
 using AgendamentoMedico.Infrastructure.Data;
 
 namespace AgendamentoMedico.Infrastructure;

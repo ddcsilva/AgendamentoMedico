@@ -1,4 +1,4 @@
-namespace AgendamentoMedico.Infrastructure.Data;
+namespace AgendamentoMedico.Application.Interfaces;
 
 /// <summary>
 /// Interface para o contexto de banco de dados da aplicação

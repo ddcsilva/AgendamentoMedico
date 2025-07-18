@@ -1,5 +1,5 @@
 using AgendamentoMedico.Infrastructure;
-using AgendamentoMedico.Infrastructure.Data;
+using AgendamentoMedico.Application.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
