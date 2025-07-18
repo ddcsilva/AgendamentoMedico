@@ -482,3 +482,68 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# ===========================================
+# SPECIFIC TO THIS PROJECT (AgendamentoMedico)
+# ===========================================
+
+# SQLite Database files
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Entity Framework Core
+**/Migrations/
+!**/Migrations/*.cs
+!**/Migrations/*.Designer.cs
+!**/Migrations/*ModelSnapshot.cs
+
+# Application-specific database files
+agendamento*.db
+agendamento*.db-*
+
+# Local development settings
+appsettings.local.json
+appsettings.*.local.json
+
+# Application logs
+logs/
+*.log
+Application.log
+
+# User secrets (if using)
+secrets.json
+
+# Development certificates
+*.pfx
+*.p12
+dev-certs/
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+
+# IDE-specific files
+.vscode/launch.json
+.vscode/settings.json
+.idea/
+
+# Coverage reports
+coverage/
+*.coverage
+*.coveragexml
+
+# Performance profiling
+BenchmarkDotNet.Artifacts/
+*.psess
+*.vsp
+*.vspx
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.production
