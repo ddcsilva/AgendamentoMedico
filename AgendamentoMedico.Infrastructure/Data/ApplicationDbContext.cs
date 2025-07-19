@@ -1,16 +1,20 @@
 using AgendamentoMedico.Domain.Entities;
 using AgendamentoMedico.Application.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AgendamentoMedico.Infrastructure.Data;
 
 /// <summary>
 /// Contexto do banco de dados da aplicação
 /// </summary>
-public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options), IApplicationDbContext
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    : IdentityDbContext<Usuario, IdentityRole<Guid>, Guid>(options), IApplicationDbContext
 {
     public DbSet<Medico> Medicos { get; set; } = null!;
     public DbSet<Paciente> Pacientes { get; set; } = null!;
     public DbSet<Consulta> Consultas { get; set; } = null!;
+    public DbSet<PerfilUsuario> PerfisUsuarios { get; set; } = null!;
 
     /// <summary>
     /// Verifica se é possível conectar ao banco de dados
@@ -58,8 +62,27 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         // Aplica todas as configurações do assembly atual
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
+        // Configurações do Identity para usar Guid
+        ConfigureIdentity(modelBuilder);
+
         // Configuração global para SQLite
         ConfigureSqliteConventions(modelBuilder);
+    }
+
+    /// <summary>
+    /// Configurações do ASP.NET Core Identity
+    /// </summary>
+    /// <param name="modelBuilder">Construtor do modelo</param>
+    private static void ConfigureIdentity(ModelBuilder modelBuilder)
+    {
+        // Renomear tabelas do Identity para português
+        modelBuilder.Entity<Usuario>().ToTable("Usuarios");
+        modelBuilder.Entity<IdentityRole<Guid>>().ToTable("Roles");
+        modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("UsuarioRoles");
+        modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("UsuarioClaims");
+        modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("UsuarioLogins");
+        modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("UsuarioTokens");
+        modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("RoleClaims");
     }
 
     /// <summary>
