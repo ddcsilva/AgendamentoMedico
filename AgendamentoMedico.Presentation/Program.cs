@@ -1,10 +1,16 @@
 using AgendamentoMedico.Infrastructure;
+using AgendamentoMedico.Application.Common;
 using AgendamentoMedico.Presentation.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Configuração dos serviços
 builder.Services.AddControllersWithViews();
+
+// Adicionar Mediator personalizado
+builder.Services.AddSimpleMediator(typeof(AgendamentoMedico.Application.Features.Auth.Commands.Login.LoginHandler).Assembly);
+
+// Adicionar infraestrutura (Identity + JWT + EF)
 builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
@@ -19,6 +25,9 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
+// Pipeline de autenticação
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sistema de Agendamento Médico</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body class="auth-body">
+    <div class="auth-background">
+        <div class="auth-background-overlay"></div>
+
+        <!-- Header minimalista -->
+        <header class="auth-header-top">
+            <div class="container">
+                <a class="navbar-brand" href="~/">
+                    <i class="fas fa-heartbeat me-2"></i>
+                    <span class="brand-text">AgendaMed</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- Conteúdo principal -->
+        <main class="auth-main">
+            <div class="container">
+                <div class="row justify-content-center align-items-center min-vh-100">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-4">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer minimalista -->
+        <footer class="auth-footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col text-center">
+                        <small class="text-muted">
+                            &copy; @DateTime.Now.Year - Sistema de Agendamento Médico
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

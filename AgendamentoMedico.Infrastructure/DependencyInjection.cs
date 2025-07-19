@@ -26,13 +26,11 @@ public static class DependencyInjection
     /// <returns>Coleção de serviços para encadeamento</returns>
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        // Configuração do Entity Framework com SQLite
         services.AddDbContext<ApplicationDbContext>(options =>
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             options.UseSqlite(connectionString);
 
-            // Configurações específicas para desenvolvimento
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
             {
                 options.EnableSensitiveDataLogging();
@@ -40,20 +38,15 @@ public static class DependencyInjection
             }
         });
 
-        // Configurar Identity
         AddIdentity(services);
 
-        // Configurar JWT
         AddJwtAuthentication(services, configuration);
 
-        // Registra a interface do contexto
         services.AddScoped<IApplicationDbContext>(provider =>
             provider.GetRequiredService<ApplicationDbContext>());
 
-        // Registra os serviços
         AddServices(services);
 
-        // Registra os repositórios com lifetime Scoped
         AddRepositories(services);
 
         return services;
@@ -67,17 +60,14 @@ public static class DependencyInjection
     {
         services.AddIdentity<Usuario, IdentityRole<Guid>>(options =>
         {
-            // Configurações de senha
             options.Password.RequiredLength = 6;
             options.Password.RequireDigit = true;
             options.Password.RequireLowercase = true;
             options.Password.RequireUppercase = true;
             options.Password.RequireNonAlphanumeric = false;
 
-            // Configurações de usuário
             options.User.RequireUniqueEmail = true;
 
-            // Configurações de bloqueio
             options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
             options.Lockout.MaxFailedAccessAttempts = 5;
             options.Lockout.AllowedForNewUsers = true;
@@ -126,6 +116,8 @@ public static class DependencyInjection
     private static void AddServices(IServiceCollection services)
     {
         services.AddScoped<IJwtTokenService, JwtTokenService>();
+        services.AddScoped<IUserManager, UserManagerService>();
+        services.AddScoped<ISignInManager, SignInManagerService>();
     }
 
     /// <summary>

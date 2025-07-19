@@ -1,0 +1,230 @@
+@model AgendamentoMedico.Presentation.Models.Account.RegisterViewModel
+@{
+    ViewData["Title"] = "Solicitar Acesso";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2 class="auth-title">
+                <i class="fas fa-user-plus me-2"></i>
+                Solicitar Acesso
+            </h2>
+            <p class="auth-subtitle">Preencha os dados para solicitar acesso ao sistema</p>
+        </div>
+
+        <form asp-action="Register" method="post" class="auth-form">
+            <div asp-validation-summary="All" class="text-danger validation-summary"></div>
+
+            <div class="mb-3">
+                <label asp-for="Nome" class="form-label">
+                    <i class="fas fa-user me-1"></i>
+                    @Html.DisplayNameFor(m => m.Nome)
+                </label>
+                <input asp-for="Nome" class="form-control form-control-lg" placeholder="Digite seu nome completo" autocomplete="name" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">
+                    <i class="fas fa-envelope me-1"></i>
+                    @Html.DisplayNameFor(m => m.Email)
+                </label>
+                <input asp-for="Email" class="form-control form-control-lg" placeholder="seu@email.com" autocomplete="email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">
+                    <i class="fas fa-lock me-1"></i>
+                    @Html.DisplayNameFor(m => m.Password)
+                </label>
+                <div class="input-group">
+                    <input asp-for="Password" class="form-control form-control-lg" placeholder="Digite uma senha segura" autocomplete="new-password" />
+                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <div class="form-text">
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle me-1"></i>
+                        A senha deve ter pelo menos 6 caracteres, incluindo maiúscula, minúscula e número.
+                    </small>
+                </div>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ConfirmPassword" class="form-label">
+                    <i class="fas fa-lock me-1"></i>
+                    @Html.DisplayNameFor(m => m.ConfirmPassword)
+                </label>
+                <div class="input-group">
+                    <input asp-for="ConfirmPassword" class="form-control form-control-lg" placeholder="Confirme sua senha" autocomplete="new-password" />
+                    <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Role" class="form-label">
+                    <i class="fas fa-user-tag me-1"></i>
+                    @Html.DisplayNameFor(m => m.Role)
+                </label>
+                <select asp-for="Role" class="form-select form-select-lg">
+                    <option value="">Selecione um perfil</option>
+                    <option value="Medico">Médico</option>
+                    <option value="Recepcionista">Recepcionista</option>
+                    <option value="Enfermeiro">Enfermeiro</option>
+                </select>
+                <div class="form-text">
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle me-1"></i>
+                        O perfil será validado por um administrador antes da liberação do acesso.
+                    </small>
+                </div>
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+
+            <div class="mb-4">
+                <div class="alert alert-info" role="alert">
+                    <i class="fas fa-shield-alt me-2"></i>
+                    <strong>Importante:</strong> Após o registro, sua solicitação será analisada por um administrador.
+                    Você receberá uma notificação quando seu acesso for liberado.
+                </div>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg" id="registerBtn">
+                    <span class="btn-text">
+                        <i class="fas fa-paper-plane me-2"></i>
+                        Solicitar Acesso
+                    </span>
+                    <span class="btn-loading d-none">
+                        <span class="spinner-border spinner-border-sm me-2"></span>
+                        Enviando solicitação...
+                    </span>
+                </button>
+            </div>
+        </form>
+
+        <div class="auth-footer">
+            <div class="text-center">
+                <p class="mb-0">Já tem uma conta?</p>
+                <a asp-action="Login" class="btn btn-link">
+                    <i class="fas fa-sign-in-alt me-1"></i>
+                    Fazer login
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        // Toggle password visibility
+        function setupPasswordToggle(inputId, buttonId) {
+            const button = document.getElementById(buttonId);
+            if (button) {
+                button.addEventListener('click', function () {
+                    const passwordInput = document.getElementById(inputId);
+                    const icon = this.querySelector('i');
+
+                    if (passwordInput.type === 'password') {
+                        passwordInput.type = 'text';
+                        icon.classList.replace('fa-eye', 'fa-eye-slash');
+                    } else {
+                        passwordInput.type = 'password';
+                        icon.classList.replace('fa-eye-slash', 'fa-eye');
+                    }
+                });
+            }
+        }
+
+        setupPasswordToggle('Password', 'togglePassword');
+        setupPasswordToggle('ConfirmPassword', 'toggleConfirmPassword');
+
+        // Loading state for register button
+        document.querySelector('.auth-form').addEventListener('submit', function() {
+            const btn = document.getElementById('registerBtn');
+            const btnText = btn.querySelector('.btn-text');
+            const btnLoading = btn.querySelector('.btn-loading');
+
+            btn.disabled = true;
+            btnText.classList.add('d-none');
+            btnLoading.classList.remove('d-none');
+        });
+
+        // Password strength indicator
+        const passwordInput = document.getElementById('Password');
+        if (passwordInput) {
+            passwordInput.addEventListener('input', function() {
+                const password = this.value;
+                const strengthIndicator = document.getElementById('passwordStrength');
+
+                // You can add password strength logic here
+                // This is a basic example
+                let strength = 0;
+                if (password.length >= 6) strength++;
+                if (/[a-z]/.test(password)) strength++;
+                if (/[A-Z]/.test(password)) strength++;
+                if (/[0-9]/.test(password)) strength++;
+                if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+                // Update visual feedback based on strength
+                this.classList.remove('is-valid', 'is-invalid');
+                if (password.length > 0) {
+                    if (strength >= 3) {
+                        this.classList.add('is-valid');
+                    } else if (strength < 2) {
+                        this.classList.add('is-invalid');
+                    }
+                }
+            });
+        }
+
+        // Real-time email validation
+        const emailInput = document.getElementById('Email');
+        if (emailInput) {
+            emailInput.addEventListener('blur', function() {
+                const email = this.value;
+                const emailPattern = /^[^@@s]+@@[^@@s]+\.[^@@s]+$/;
+
+                this.classList.remove('is-valid', 'is-invalid');
+                if (email.length > 0) {
+                    if (emailPattern.test(email)) {
+                        this.classList.add('is-valid');
+                    } else {
+                        this.classList.add('is-invalid');
+                    }
+                }
+            });
+        }
+
+        // Password confirmation validation
+        const confirmPasswordInput = document.getElementById('ConfirmPassword');
+        if (confirmPasswordInput && passwordInput) {
+            function checkPasswordMatch() {
+                const password = passwordInput.value;
+                const confirmPassword = confirmPasswordInput.value;
+
+                confirmPasswordInput.classList.remove('is-valid', 'is-invalid');
+                if (confirmPassword.length > 0) {
+                    if (password === confirmPassword) {
+                        confirmPasswordInput.classList.add('is-valid');
+                    } else {
+                        confirmPasswordInput.classList.add('is-invalid');
+                    }
+                }
+            }
+
+            confirmPasswordInput.addEventListener('input', checkPasswordMatch);
+            passwordInput.addEventListener('input', checkPasswordMatch);
+        }
+    </script>
+}

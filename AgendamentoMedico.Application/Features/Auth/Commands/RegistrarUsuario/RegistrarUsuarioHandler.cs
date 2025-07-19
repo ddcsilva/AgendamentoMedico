@@ -1,6 +1,6 @@
 using AgendamentoMedico.Application.Common;
+using AgendamentoMedico.Application.Interfaces;
 using AgendamentoMedico.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
 namespace AgendamentoMedico.Application.Features.Auth.Commands.RegistrarUsuario;
@@ -9,39 +9,33 @@ namespace AgendamentoMedico.Application.Features.Auth.Commands.RegistrarUsuario;
 /// Handler para registrar um novo usuário
 /// </summary>
 public class RegistrarUsuarioHandler(
-    UserManager<Usuario> userManager
+    IUserManager userManager
 ) : IRequestHandler<RegistrarUsuarioCommand, Usuario>
 {
     public async Task<Usuario> Handle(RegistrarUsuarioCommand request, CancellationToken cancellationToken)
     {
-        // Validar dados
         request.Validar();
 
-        // Verificar se email já existe
         var usuarioExistente = await userManager.FindByEmailAsync(request.Email);
         if (usuarioExistente != null)
             throw new InvalidOperationException($"Email {request.Email} já está em uso");
 
-        // Criar usuário
         var usuario = new Usuario
         {
             Nome = request.Nome,
             Email = request.Email,
             UserName = request.Email,
-            EmailConfirmed = true // Admin registra usuários já confirmados
+            EmailConfirmed = true
         };
 
-        usuario.DefinirCriador("System"); // Ou pegar do contexto atual
+        usuario.DefinirCriador("System");
 
-        // Criar no banco
-        var resultado = await userManager.CreateAsync(usuario, request.Senha);
-        if (!resultado.Succeeded)
+        var sucesso = await userManager.CreateAsync(usuario, request.Senha);
+        if (!sucesso)
         {
-            var erros = string.Join(", ", resultado.Errors.Select(e => e.Description));
-            throw new InvalidOperationException($"Erro ao criar usuário: {erros}");
+            throw new InvalidOperationException("Erro ao criar usuário");
         }
 
-        // Adicionar claims se fornecidos
         if (request.Claims?.Any() == true)
         {
             var claims = request.Claims.Select(c => new Claim("permission", c)).ToList();
