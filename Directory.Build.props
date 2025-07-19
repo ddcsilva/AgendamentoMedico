@@ -1,0 +1,36 @@
+<Project>
+    <!-- Configurações globais aplicadas a todos os projetos -->
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+        <GenerateDocumentationFile>false</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);CS1591</NoWarn> <!-- Missing XML comment warnings -->
+    </PropertyGroup>
+
+    <!-- Global usings aplicados a todos os projetos -->
+    <ItemGroup>
+        <Using Include="System" />
+        <Using Include="System.Collections.Generic" />
+        <Using Include="System.Linq" />
+        <Using Include="System.Threading" />
+        <Using Include="System.Threading.Tasks" />
+    </ItemGroup>
+
+    <!-- Global usings específicos para projetos que usam Entity Framework -->
+    <ItemGroup Condition="$(MSBuildProjectName.Contains('Infrastructure'))">
+        <Using Include="Microsoft.EntityFrameworkCore" />
+    </ItemGroup>
+
+    <!-- Global usings específicos para projetos ASP.NET Core -->
+    <ItemGroup Condition="$(MSBuildProjectName.Contains('Presentation'))">
+        <Using Include="Microsoft.AspNetCore.Mvc" />
+        <Using Include="Microsoft.Extensions.Logging" />
+    </ItemGroup>
+
+    <!-- Global usings específicos para Domain -->
+    <ItemGroup Condition="$(MSBuildProjectName.Contains('Domain'))">
+        <Using Include="System.ComponentModel.DataAnnotations" />
+    </ItemGroup>
+</Project>

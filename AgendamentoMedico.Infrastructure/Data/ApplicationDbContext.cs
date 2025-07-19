@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using AgendamentoMedico.Domain.Entities;
 using AgendamentoMedico.Application.Interfaces;
 

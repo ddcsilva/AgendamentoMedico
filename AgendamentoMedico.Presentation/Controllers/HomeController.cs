@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
 using AgendamentoMedico.Presentation.Models;
 
 namespace AgendamentoMedico.Presentation.Controllers;

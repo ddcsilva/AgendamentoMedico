@@ -1,5 +1,4 @@
 using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
 using AgendamentoMedico.Domain.Entities;
 using AgendamentoMedico.Domain.Interfaces;
 using AgendamentoMedico.Infrastructure.Data;

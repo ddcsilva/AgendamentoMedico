@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using AgendamentoMedico.Domain.Entities;
 using AgendamentoMedico.Domain.Interfaces;
 using AgendamentoMedico.Infrastructure.Data;
@@ -43,7 +42,7 @@ public class MedicoRepository(ApplicationDbContext context) : Repository<Medico>
             .ToListAsync(cancellationToken);
     }
 
-        /// <summary>
+    /// <summary>
     /// Verifica se um CRM já está em uso
     /// </summary>
     public async Task<bool> CrmJaExisteAsync(string crm, Guid? medicoId = null, CancellationToken cancellationToken = default)
