@@ -21,7 +21,7 @@ public interface IPacienteRepository : IRepository<Paciente>
     /// <param name="id">Identificador do paciente</param>
     /// <param name="cancellationToken">Token de cancelamento</param>
     /// <returns>O paciente com suas consultas ou null se não existir</returns>
-    Task<Paciente?> ObterComHistoricoConsultasAsync(int id, CancellationToken cancellationToken = default);
+    Task<Paciente?> ObterComHistoricoConsultasAsync(Guid id, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Busca pacientes por nome (busca parcial)
@@ -38,7 +38,7 @@ public interface IPacienteRepository : IRepository<Paciente>
     /// <param name="pacienteId">ID do paciente a ser excluído da verificação (para atualização)</param>
     /// <param name="cancellationToken">Token de cancelamento</param>
     /// <returns>True se o CPF já estiver em uso</returns>
-    Task<bool> CpfJaExisteAsync(string cpf, int? pacienteId = null, CancellationToken cancellationToken = default);
+    Task<bool> CpfJaExisteAsync(string cpf, Guid? pacienteId = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Obtém pacientes com consultas no período especificado

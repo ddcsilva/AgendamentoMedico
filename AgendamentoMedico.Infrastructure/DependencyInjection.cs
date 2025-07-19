@@ -2,7 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AgendamentoMedico.Application.Interfaces;
+using AgendamentoMedico.Domain.Interfaces;
 using AgendamentoMedico.Infrastructure.Data;
+using AgendamentoMedico.Infrastructure.Repositories;
 
 namespace AgendamentoMedico.Infrastructure;
 
@@ -37,6 +39,20 @@ public static class DependencyInjection
         services.AddScoped<IApplicationDbContext>(provider =>
             provider.GetRequiredService<ApplicationDbContext>());
 
+        // Registra os repositórios com lifetime Scoped
+        AddRepositories(services);
+
         return services;
+    }
+
+    /// <summary>
+    /// Registra todos os repositórios no container de DI
+    /// </summary>
+    /// <param name="services">Coleção de serviços</param>
+    private static void AddRepositories(IServiceCollection services)
+    {
+        services.AddScoped<IMedicoRepository, MedicoRepository>();
+        services.AddScoped<IPacienteRepository, PacienteRepository>();
+        services.AddScoped<IConsultaRepository, ConsultaRepository>();
     }
 }

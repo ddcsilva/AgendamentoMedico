@@ -6,9 +6,8 @@ namespace AgendamentoMedico.Infrastructure.Data;
 
 /// <summary>
 /// Contexto do banco de dados da aplicação
-/// Classe interna para evitar uso direto fora da camada de infraestrutura
 /// </summary>
-internal class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options), IApplicationDbContext
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options), IApplicationDbContext
 {
     public DbSet<Medico> Medicos { get; set; } = null!;
     public DbSet<Paciente> Pacientes { get; set; } = null!;

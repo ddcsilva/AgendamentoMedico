@@ -22,7 +22,7 @@ public interface IConsultaRepository : IRepository<Consulta>
     /// <param name="medicoId">Identificador do médico</param>
     /// <param name="cancellationToken">Token de cancelamento</param>
     /// <returns>Lista de consultas do médico</returns>
-    Task<IEnumerable<Consulta>> BuscarPorMedicoAsync(int medicoId, CancellationToken cancellationToken = default);
+    Task<IEnumerable<Consulta>> BuscarPorMedicoAsync(Guid medicoId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Busca consultas de um paciente específico
@@ -30,7 +30,7 @@ public interface IConsultaRepository : IRepository<Consulta>
     /// <param name="pacienteId">Identificador do paciente</param>
     /// <param name="cancellationToken">Token de cancelamento</param>
     /// <returns>Lista de consultas do paciente</returns>
-    Task<IEnumerable<Consulta>> BuscarPorPacienteAsync(int pacienteId, CancellationToken cancellationToken = default);
+    Task<IEnumerable<Consulta>> BuscarPorPacienteAsync(Guid pacienteId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Obtém uma consulta com todos os dados relacionados (médico e paciente)
@@ -38,7 +38,7 @@ public interface IConsultaRepository : IRepository<Consulta>
     /// <param name="id">Identificador da consulta</param>
     /// <param name="cancellationToken">Token de cancelamento</param>
     /// <returns>A consulta com dados relacionados ou null se não existir</returns>
-    Task<Consulta?> ObterComDadosCompletosAsync(int id, CancellationToken cancellationToken = default);
+    Task<Consulta?> ObterComDadosCompletosAsync(Guid id, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Verifica se existe conflito de horário para um médico
@@ -48,7 +48,7 @@ public interface IConsultaRepository : IRepository<Consulta>
     /// <param name="consultaId">ID da consulta a ser excluída da verificação (para reagendamento)</param>
     /// <param name="cancellationToken">Token de cancelamento</param>
     /// <returns>True se existir conflito de horário</returns>
-    Task<bool> ExisteConflitoHorarioMedicoAsync(int medicoId, DateTime dataHora, int? consultaId = null, CancellationToken cancellationToken = default);
+    Task<bool> ExisteConflitoHorarioMedicoAsync(Guid medicoId, DateTime dataHora, Guid? consultaId = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Obtém consultas do dia para um médico específico
@@ -57,7 +57,7 @@ public interface IConsultaRepository : IRepository<Consulta>
     /// <param name="data">Data das consultas</param>
     /// <param name="cancellationToken">Token de cancelamento</param>
     /// <returns>Lista de consultas do dia para o médico</returns>
-    Task<IEnumerable<Consulta>> ObterConsultasDoDiaAsync(int medicoId, DateTime data, CancellationToken cancellationToken = default);
+    Task<IEnumerable<Consulta>> ObterConsultasDoDiaAsync(Guid medicoId, DateTime data, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Obtém consultas próximas (nas próximas horas)

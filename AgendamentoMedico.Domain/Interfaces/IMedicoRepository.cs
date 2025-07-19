@@ -21,7 +21,7 @@ public interface IMedicoRepository : IRepository<Medico>
     /// <param name="id">Identificador do médico</param>
     /// <param name="cancellationToken">Token de cancelamento</param>
     /// <returns>O médico com suas consultas ou null se não existir</returns>
-    Task<Medico?> ObterComConsultasAsync(int id, CancellationToken cancellationToken = default);
+    Task<Medico?> ObterComConsultasAsync(Guid id, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Busca médicos por especialidade
@@ -38,7 +38,7 @@ public interface IMedicoRepository : IRepository<Medico>
     /// <param name="medicoId">ID do médico a ser excluído da verificação (para atualização)</param>
     /// <param name="cancellationToken">Token de cancelamento</param>
     /// <returns>True se o CRM já estiver em uso</returns>
-    Task<bool> CrmJaExisteAsync(string crm, int? medicoId = null, CancellationToken cancellationToken = default);
+    Task<bool> CrmJaExisteAsync(string crm, Guid? medicoId = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Obtém médicos com consultas no período especificado

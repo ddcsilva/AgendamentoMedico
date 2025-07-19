@@ -15,7 +15,7 @@ public interface IRepository<TEntity> where TEntity : Entity
     /// <param name="id">Identificador da entidade</param>
     /// <param name="cancellationToken">Token de cancelamento</param>
     /// <returns>A entidade encontrada ou null se não existir</returns>
-    Task<TEntity?> ObterPorIdAsync(int id, CancellationToken cancellationToken = default);
+    Task<TEntity?> ObterPorIdAsync(Guid id, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Obtém todas as entidades
@@ -66,7 +66,7 @@ public interface IRepository<TEntity> where TEntity : Entity
     /// <param name="id">Identificador da entidade a ser removida</param>
     /// <param name="cancellationToken">Token de cancelamento</param>
     /// <returns>True se a entidade foi removida, False se não foi encontrada</returns>
-    Task<bool> RemoverPorIdAsync(int id, CancellationToken cancellationToken = default);
+    Task<bool> RemoverPorIdAsync(Guid id, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Salva todas as alterações pendentes no contexto
