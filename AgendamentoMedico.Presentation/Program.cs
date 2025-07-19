@@ -13,6 +13,15 @@ builder.Services.AddSimpleMediator(typeof(AgendamentoMedico.Application.Features
 // Adicionar infraestrutura (Identity + JWT + EF)
 builder.Services.AddInfrastructure(builder.Configuration);
 
+// Configurar redirecionamentos de autenticação
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.LogoutPath = "/Account/Logout";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+    options.ReturnUrlParameter = "returnUrl";
+});
+
 var app = builder.Build();
 
 // Configuração do pipeline de requisições

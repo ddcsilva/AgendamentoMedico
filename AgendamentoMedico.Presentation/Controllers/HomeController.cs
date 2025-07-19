@@ -1,8 +1,10 @@
 using System.Diagnostics;
 using AgendamentoMedico.Presentation.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AgendamentoMedico.Presentation.Controllers;
 
+[Authorize]
 public class HomeController(ILogger<HomeController> logger) : Controller
 {
     private readonly ILogger<HomeController> _logger = logger;
