@@ -8,10 +8,6 @@ namespace AgendamentoMedico.Infrastructure.Data.Configurations;
 /// </summary>
 public class ConsultaConfiguration : IEntityTypeConfiguration<Consulta>
 {
-    /// <summary>
-    /// Configura a entidade Consulta
-    /// </summary>
-    /// <param name="builder">Construtor de configuração da entidade</param>
     public void Configure(EntityTypeBuilder<Consulta> builder)
     {
         // Configuração da tabela
@@ -22,7 +18,7 @@ public class ConsultaConfiguration : IEntityTypeConfiguration<Consulta>
 
         // Configuração das propriedades
         builder.Property(c => c.Id)
-            .ValueGeneratedNever() // Guid gerado pela aplicação
+            .ValueGeneratedNever()
             .HasComment("Identificador único da consulta");
 
         builder.Property(c => c.MedicoId)
