@@ -8,27 +8,12 @@ public class Consulta : AuditableEntity
     /// <summary>
     /// Construtor para criar uma nova consulta
     /// </summary>
-    /// <param name="medicoId">ID do médico</param>
-    /// <param name="pacienteId">ID do paciente</param>
-    /// <param name="dataHora">Data e hora da consulta</param>
-    /// <param name="observacoes">Observações da consulta (opcional)</param>
-    public Consulta(Guid medicoId, Guid pacienteId, DateTime dataHora, string? observacoes = null) : base()
-    {
-        MedicoId = medicoId;
-        PacienteId = pacienteId;
-        DataHora = dataHora;
-        Observacoes = observacoes;
-    }
+    public Consulta() { }
 
-    /// <summary>
-    /// Construtor privado para uso do Entity Framework
-    /// </summary>
-    private Consulta() : base() { }
-
-    public Guid MedicoId { get; private set; }
-    public Guid PacienteId { get; private set; }
-    public DateTime DataHora { get; private set; }
-    public string? Observacoes { get; private set; }
+    public required Guid MedicoId { get; set; }
+    public required Guid PacienteId { get; set; }
+    public required DateTime DataHora { get; set; }
+    public string? Observacoes { get; set; }
 
     /// <summary>
     /// Navigation property para o médico (privada para EF)

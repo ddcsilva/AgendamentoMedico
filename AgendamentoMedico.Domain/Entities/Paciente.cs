@@ -10,30 +10,14 @@ public class Paciente : AuditableEntity
     /// <summary>
     /// Construtor para criar um novo paciente
     /// </summary>
-    /// <param name="nome">Nome completo do paciente</param>
-    /// <param name="cpf">CPF do paciente</param>
-    /// <param name="dataNascimento">Data de nascimento</param>
-    public Paciente(string nome, string cpf, DateTime dataNascimento) : base()
+    public Paciente()
     {
-        Nome = nome ?? throw new ArgumentNullException(nameof(nome));
-        CPF = cpf ?? throw new ArgumentNullException(nameof(cpf));
-        DataNascimento = dataNascimento;
         _consultas = [];
     }
 
-    /// <summary>
-    /// Construtor privado para uso do Entity Framework
-    /// </summary>
-    private Paciente() : base()
-    {
-        _consultas = [];
-        Nome = string.Empty;
-        CPF = string.Empty;
-    }
-
-    public string Nome { get; private set; }
-    public string CPF { get; private set; }
-    public DateTime DataNascimento { get; private set; }
+    public required string Nome { get; set; }
+    public required string CPF { get; set; }
+    public required DateTime DataNascimento { get; set; }
 
     /// <summary>
     /// Consultas do paciente (somente leitura)

@@ -10,31 +10,14 @@ public class Medico : AuditableEntity
     /// <summary>
     /// Construtor para criar um novo médico
     /// </summary>
-    /// <param name="nome">Nome completo do médico</param>
-    /// <param name="crm">Número do CRM</param>
-    /// <param name="especialidade">Especialidade médica</param>
-    public Medico(string nome, string crm, string especialidade) : base()
+    public Medico()
     {
-        Nome = nome ?? throw new ArgumentNullException(nameof(nome));
-        CRM = crm ?? throw new ArgumentNullException(nameof(crm));
-        Especialidade = especialidade ?? throw new ArgumentNullException(nameof(especialidade));
         _consultas = [];
     }
 
-    /// <summary>
-    /// Construtor privado para uso do Entity Framework
-    /// </summary>
-    private Medico() : base()
-    {
-        _consultas = [];
-        Nome = string.Empty;
-        CRM = string.Empty;
-        Especialidade = string.Empty;
-    }
-
-    public string Nome { get; private set; }
-    public string CRM { get; private set; }
-    public string Especialidade { get; private set; }
+    public required string Nome { get; set; }
+    public required string CRM { get; set; }
+    public required string Especialidade { get; set; }
 
     /// <summary>
     /// Consultas do médico (somente leitura)
