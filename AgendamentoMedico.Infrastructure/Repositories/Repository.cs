@@ -10,20 +10,11 @@ namespace AgendamentoMedico.Infrastructure.Repositories;
 /// Implementação base genérica dos repositórios
 /// </summary>
 /// <typeparam name="TEntity">Tipo da entidade que herda de Entity</typeparam>
-public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
+/// <param name="context">Contexto do EF Core</param>
+public class Repository<TEntity>(ApplicationDbContext context) : IRepository<TEntity> where TEntity : Entity
 {
-    protected readonly ApplicationDbContext _context;
-    protected readonly DbSet<TEntity> _dbSet;
-
-    /// <summary>
-    /// Construtor que recebe o contexto do banco de dados
-    /// </summary>
-    /// <param name="context">Contexto do EF Core</param>
-    public Repository(ApplicationDbContext context)
-    {
-        _context = context;
-        _dbSet = _context.Set<TEntity>();
-    }
+    protected readonly ApplicationDbContext _context = context;
+    protected readonly DbSet<TEntity> _dbSet = context.Set<TEntity>();
 
     /// <summary>
     /// Obtém uma entidade por seu identificador

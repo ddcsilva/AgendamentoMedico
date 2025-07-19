@@ -8,15 +8,9 @@ namespace AgendamentoMedico.Infrastructure.Repositories;
 /// <summary>
 /// Implementação especializada do repositório de médicos
 /// </summary>
-public class MedicoRepository : Repository<Medico>, IMedicoRepository
+/// <param name="context">Contexto do EF Core</param>
+public class MedicoRepository(ApplicationDbContext context) : Repository<Medico>(context), IMedicoRepository
 {
-    /// <summary>
-    /// Construtor que recebe o contexto do banco de dados
-    /// </summary>
-    /// <param name="context">Contexto do EF Core</param>
-    public MedicoRepository(ApplicationDbContext context) : base(context)
-    {
-    }
 
     /// <summary>
     /// Busca um médico pelo seu CRM

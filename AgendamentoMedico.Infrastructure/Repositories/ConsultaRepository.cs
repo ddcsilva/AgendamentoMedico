@@ -8,15 +8,9 @@ namespace AgendamentoMedico.Infrastructure.Repositories;
 /// <summary>
 /// Implementação especializada do repositório de consultas
 /// </summary>
-public class ConsultaRepository : Repository<Consulta>, IConsultaRepository
+/// <param name="context">Contexto do EF Core</param>
+public class ConsultaRepository(ApplicationDbContext context) : Repository<Consulta>(context), IConsultaRepository
 {
-    /// <summary>
-    /// Construtor que recebe o contexto do banco de dados
-    /// </summary>
-    /// <param name="context">Contexto do EF Core</param>
-    public ConsultaRepository(ApplicationDbContext context) : base(context)
-    {
-    }
 
     /// <summary>
     /// Obtém consultas em um período específico

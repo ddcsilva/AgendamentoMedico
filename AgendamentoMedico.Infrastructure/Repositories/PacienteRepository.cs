@@ -8,15 +8,9 @@ namespace AgendamentoMedico.Infrastructure.Repositories;
 /// <summary>
 /// Implementação especializada do repositório de pacientes
 /// </summary>
-public class PacienteRepository : Repository<Paciente>, IPacienteRepository
+/// <param name="context">Contexto do EF Core</param>
+public class PacienteRepository(ApplicationDbContext context) : Repository<Paciente>(context), IPacienteRepository
 {
-    /// <summary>
-    /// Construtor que recebe o contexto do banco de dados
-    /// </summary>
-    /// <param name="context">Contexto do EF Core</param>
-    public PacienteRepository(ApplicationDbContext context) : base(context)
-    {
-    }
 
     /// <summary>
     /// Busca um paciente pelo seu CPF
